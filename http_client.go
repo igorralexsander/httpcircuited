@@ -11,7 +11,9 @@ type HttpClient struct {
 }
 
 func NewHttpClient() *HttpClient {
-	return &HttpClient{}
+	return &HttpClient{
+		downstreams: make(map[string]Downstream),
+	}
 }
 
 func (c HttpClient) AddDownstream(config downstream.DownStreamConfig) {
