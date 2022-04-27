@@ -1,4 +1,4 @@
-package downstream
+package config
 
 import "time"
 
@@ -12,12 +12,4 @@ type DownStreamConfig struct {
 	MaxFailRequests    uint32
 	DelayPeriodRetry   time.Duration
 	RequestsInHalfOpen uint32
-}
-
-func (m *DownStreamConfig) AddDefaultHeader(name string, value string) *DownStreamConfig {
-	if m.DefaultHeaders == nil {
-		m.DefaultHeaders = make(map[string]string)
-	}
-	m.DefaultHeaders[name] = value
-	return m
 }

@@ -3,7 +3,7 @@ package httpcircuited
 import (
 	"errors"
 	"fmt"
-	"github.com/igorralexsander/httpcircuited/config/downstream"
+	"github.com/igorralexsander/httpcircuited/config"
 )
 
 type HttpClient struct {
@@ -16,11 +16,11 @@ func NewHttpClient() *HttpClient {
 	}
 }
 
-func (c HttpClient) NewConfigBuilder() *downstream.ConfigBuilder {
-	return downstream.NewBuilder()
+func (c HttpClient) NewConfigBuilder() *config.ConfigBuilder {
+	return config.NewBuilder()
 }
 
-func (c HttpClient) AddDownstream(config downstream.DownStreamConfig) {
+func (c HttpClient) AddDownstream(config config.DownStreamConfig) {
 	if _, exists := c.downstreams[config.Name]; !exists {
 		service := NewDownstream(config)
 		c.downstreams[config.Name] = *service

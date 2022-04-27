@@ -1,12 +1,12 @@
 package circuitbreaker
 
 import (
-	"github.com/igorralexsander/httpcircuited/config/downstream"
+	"github.com/igorralexsander/httpcircuited/config"
 	"github.com/sony/gobreaker"
 	"time"
 )
 
-func MakeCircuitBreaker(config downstream.DownStreamConfig) CircuitBreaker {
+func MakeCircuitBreaker(config config.DownStreamConfig) CircuitBreaker {
 	cb := CircuitBreaker{
 		minRequests:           config.MinRequests,
 		failureRatioThreshold: config.FailureRatio,

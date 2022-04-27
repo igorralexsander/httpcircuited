@@ -3,7 +3,7 @@ package httpcircuited
 import (
 	"github.com/go-resty/resty/v2"
 	"github.com/igorralexsander/httpcircuited/circuitbreaker"
-	"github.com/igorralexsander/httpcircuited/config/downstream"
+	"github.com/igorralexsander/httpcircuited/config"
 	"time"
 )
 
@@ -12,7 +12,7 @@ type Downstream struct {
 	cb     circuitbreaker.CircuitBreaker
 }
 
-func NewDownstream(config downstream.DownStreamConfig) *Downstream {
+func NewDownstream(config config.DownStreamConfig) *Downstream {
 	restyClient := resty.New()
 	restyClient.SetTimeout(config.TimeoutMilliseconds * time.Millisecond)
 	restyClient.SetBaseURL(config.BaseUrl)
