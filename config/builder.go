@@ -20,11 +20,11 @@ func NewBuilder() *ConfigBuilder {
 
 	return &ConfigBuilder{
 		name:               "DEFAULT",
-		timeout:            time.Duration(30000),
+		timeout:            time.Duration(30000) * time.Millisecond,
 		failureRatio:       0.6,
 		minRequests:        3,
 		maxFailRequests:    10,
-		delayPeriodRetry:   time.Duration(15000),
+		delayPeriodRetry:   time.Duration(15000) * time.Millisecond,
 		requestsInHalfOpen: 2,
 		defaultHeaders:     make(map[string]string),
 	}
