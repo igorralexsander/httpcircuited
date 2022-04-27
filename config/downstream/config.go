@@ -13,3 +13,11 @@ type DownStreamConfig struct {
 	FailRequestsMilliseconds time.Duration
 	RequestsInHalfOpen       uint32
 }
+
+func (m *DownStreamConfig) AddDefaultHeader(name string, value string) *DownStreamConfig {
+	if m.DefaultHeaders == nil {
+		m.DefaultHeaders = make(map[string]string)
+	}
+	m.DefaultHeaders[name] = value
+	return m
+}
