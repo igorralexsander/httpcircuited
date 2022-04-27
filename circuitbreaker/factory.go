@@ -3,7 +3,6 @@ package circuitbreaker
 import (
 	"github.com/igorralexsander/httpcircuited/config"
 	"github.com/sony/gobreaker"
-	"time"
 )
 
 func MakeCircuitBreaker(config config.DownStreamConfig) CircuitBreaker {
@@ -15,8 +14,8 @@ func MakeCircuitBreaker(config config.DownStreamConfig) CircuitBreaker {
 	cb.cb = gobreaker.NewCircuitBreaker(gobreaker.Settings{
 		Name:          "cb-" + config.Name,
 		MaxRequests:   config.RequestsInHalfOpen,
-		Interval:      time.Millisecond * config.FailRequestsMilliseconds,
-		Timeout:       time.Millisecond * config.TimeoutMilliseconds,
+		Interval:      config.DelayPeriodRetry,
+		Timeout:       config.Timeout,
 		ReadyToTrip:   cb.ratioThreshold,
 		OnStateChange: cb.watcher,
 	})
