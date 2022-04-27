@@ -4,6 +4,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/igorralexsander/httpcircuited/circuitbreaker"
 	"github.com/igorralexsander/httpcircuited/config/downstream"
+	"time"
 )
 
 type Downstream struct {
@@ -13,7 +14,7 @@ type Downstream struct {
 
 func NewDownstream(config downstream.DownStreamConfig) *Downstream {
 	restyClient := resty.New()
-	restyClient.SetTimeout(config.TimeoutMilliseconds)
+	restyClient.SetTimeout(config.TimeoutMilliseconds * time.Millisecond)
 	restyClient.SetBaseURL(config.BaseUrl)
 
 	circuitBreaker := circuitbreaker.MakeCircuitBreaker(config)
