@@ -16,6 +16,10 @@ func NewHttpClient() *HttpClient {
 	}
 }
 
+func (c HttpClient) NewConfigBuilder() *downstream.ConfigBuilder {
+	return downstream.NewBuilder()
+}
+
 func (c HttpClient) AddDownstream(config downstream.DownStreamConfig) {
 	if _, exists := c.downstreams[config.Name]; !exists {
 		service := NewDownstream(config)
