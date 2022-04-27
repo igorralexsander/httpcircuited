@@ -17,6 +17,12 @@ func NewDownstream(config downstream.DownStreamConfig) *Downstream {
 	restyClient.SetTimeout(config.TimeoutMilliseconds * time.Millisecond)
 	restyClient.SetBaseURL(config.BaseUrl)
 
+	if config.DefaultHeaders != nil {
+		for key, value := range config.DefaultHeaders {
+			restyClient.SetHeader(key, value)
+		}
+	}
+
 	circuitBreaker := circuitbreaker.MakeCircuitBreaker(config)
 	return &Downstream{
 		client: restyClient,
