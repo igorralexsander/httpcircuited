@@ -1,9 +1,9 @@
-package httpclient
+package httpcircuited
 
 import (
 	"github.com/go-resty/resty/v2"
-	"httpclient/circuitbreaker"
-	"httpclient/config/downstream"
+	"github.com/igorralexsander/httpcircuited/circuitbreaker"
+	"github.com/igorralexsander/httpcircuited/config/downstream"
 )
 
 type Downstream struct {

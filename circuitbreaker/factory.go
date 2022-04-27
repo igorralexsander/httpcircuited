@@ -1,8 +1,8 @@
 package circuitbreaker
 
 import (
+	"github.com/igorralexsander/httpcircuited/config/downstream"
 	"github.com/sony/gobreaker"
-	"httpclient/config/downstream"
 	"time"
 )
 

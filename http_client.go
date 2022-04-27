@@ -1,9 +1,9 @@
-package httpclient
+package httpcircuited
 
 import (
 	"errors"
 	"fmt"
-	"httpclient/config/downstream"
+	"github.com/igorralexsander/httpcircuited/config/downstream"
 )
 
 type HttpClient struct {
