@@ -11,10 +11,6 @@ type CircuitBreaker struct {
 	cb                    *gobreaker.CircuitBreaker
 }
 
-func NewCircuitBreaker(minRequests uint32, failureRatioThreshold float64, cb *gobreaker.CircuitBreaker) *CircuitBreaker {
-	return &CircuitBreaker{minRequests, failureRatioThreshold, cb}
-}
-
 func (c CircuitBreaker) Fetch(request func() (interface{}, error)) (interface{}, error) {
 	response, err := c.cb.Execute(request)
 	return response, err

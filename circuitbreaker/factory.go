@@ -14,8 +14,8 @@ func MakeCircuitBreaker(config config.DownStreamConfig) CircuitBreaker {
 	cb.cb = gobreaker.NewCircuitBreaker(gobreaker.Settings{
 		Name:          "cb-" + config.Name,
 		MaxRequests:   config.RequestsInHalfOpen,
-		Interval:      config.DelayPeriodRetry,
-		Timeout:       config.Timeout,
+		Interval:      config.DelayPeriodOpened,
+		Timeout:       config.DelayPeriodOpened,
 		ReadyToTrip:   cb.ratioThreshold,
 		OnStateChange: cb.watcher,
 	})

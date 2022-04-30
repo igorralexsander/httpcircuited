@@ -10,6 +10,7 @@ type DownStreamConfig struct {
 	FailureRatio       float64
 	MinRequests        uint32
 	MaxFailRequests    uint32
-	DelayPeriodRetry   time.Duration
+	DelayPeriodOpened  time.Duration
+	ResetInterval      time.Duration
 	RequestsInHalfOpen uint32
 }

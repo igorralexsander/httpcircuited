@@ -12,7 +12,8 @@ type ConfigBuilder struct {
 	failureRatio       float64
 	minRequests        uint32
 	maxFailRequests    uint32
-	delayPeriodRetry   time.Duration
+	delayPeriodOpened  time.Duration
+	resetInterval      time.Duration
 	requestsInHalfOpen uint32
 }
 
@@ -24,7 +25,8 @@ func NewBuilder() *ConfigBuilder {
 		failureRatio:       0.6,
 		minRequests:        3,
 		maxFailRequests:    10,
-		delayPeriodRetry:   time.Duration(15000) * time.Millisecond,
+		delayPeriodOpened:  time.Duration(30000) * time.Millisecond,
+		resetInterval:      time.Duration(60000) * time.Millisecond,
 		requestsInHalfOpen: 2,
 		defaultHeaders:     make(map[string]string),
 	}
@@ -55,8 +57,13 @@ func (b *ConfigBuilder) CircuitErrorsToOpen(errorCount int32) *ConfigBuilder {
 	return b
 }
 
-func (b *ConfigBuilder) CircuitDelayOpen(milliseconds int32) *ConfigBuilder {
-	b.delayPeriodRetry = time.Duration(milliseconds) * time.Millisecond
+func (b *ConfigBuilder) CircuitDelayOpened(milliseconds int32) *ConfigBuilder {
+	b.delayPeriodOpened = time.Duration(milliseconds) * time.Millisecond
+	return b
+}
+
+func (b *ConfigBuilder) CircuitResetInterval(milliseconds int32) *ConfigBuilder {
+	b.resetInterval = time.Duration(milliseconds) * time.Millisecond
 	return b
 }
 
@@ -84,7 +91,8 @@ func (b *ConfigBuilder) Build() *DownStreamConfig {
 		FailureRatio:       b.failureRatio,
 		MinRequests:        b.minRequests,
 		MaxFailRequests:    b.maxFailRequests,
-		DelayPeriodRetry:   b.delayPeriodRetry,
+		DelayPeriodOpened:  b.delayPeriodOpened,
+		ResetInterval:      b.resetInterval,
 		RequestsInHalfOpen: b.requestsInHalfOpen,
 	}
 }
