@@ -6,7 +6,7 @@ import (
 )
 
 type CircuitBreaker struct {
-	minRequests           uint32
+	failRequests          uint32
 	failureRatioThreshold float64
 	cb                    *gobreaker.CircuitBreaker
 }
@@ -18,7 +18,7 @@ func (c CircuitBreaker) Fetch(request func() (interface{}, error)) (interface{},
 
 func (c *CircuitBreaker) ratioThreshold(counts gobreaker.Counts) bool {
 	failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
-	return counts.Requests >= c.minRequests && failureRatio >= c.failureRatioThreshold
+	return counts.Requests >= c.failRequests && failureRatio >= c.failureRatioThreshold
 }
 
 func (c *CircuitBreaker) watcher(name string, from gobreaker.State, to gobreaker.State) {

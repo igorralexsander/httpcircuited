@@ -7,7 +7,7 @@ import (
 
 func MakeCircuitBreaker(config config.DownStreamConfig) CircuitBreaker {
 	cb := CircuitBreaker{
-		minRequests:           config.MinRequests,
+		failRequests:          config.MaxFailRequests,
 		failureRatioThreshold: config.FailureRatio,
 	}
 

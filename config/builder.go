@@ -10,7 +10,6 @@ type ConfigBuilder struct {
 	timeout            time.Duration
 	defaultHeaders     map[string]string
 	failureRatio       float64
-	minRequests        uint32
 	maxFailRequests    uint32
 	delayPeriodOpened  time.Duration
 	resetInterval      time.Duration
@@ -23,7 +22,6 @@ func NewBuilder() *ConfigBuilder {
 		name:               "DEFAULT",
 		timeout:            time.Duration(30000) * time.Millisecond,
 		failureRatio:       0.6,
-		minRequests:        3,
 		maxFailRequests:    10,
 		delayPeriodOpened:  time.Duration(30000) * time.Millisecond,
 		resetInterval:      time.Duration(60000) * time.Millisecond,
@@ -67,11 +65,6 @@ func (b *ConfigBuilder) CircuitResetInterval(milliseconds int32) *ConfigBuilder 
 	return b
 }
 
-func (b *ConfigBuilder) CircuitMinRequests(minRequests int32) *ConfigBuilder {
-	b.minRequests = uint32(minRequests)
-	return b
-}
-
 func (b *ConfigBuilder) CircuitRequestsInHalfOpen(count int32) *ConfigBuilder {
 	b.requestsInHalfOpen = uint32(count)
 	return b
@@ -89,7 +82,6 @@ func (b *ConfigBuilder) Build() *DownStreamConfig {
 		Timeout:            b.timeout,
 		DefaultHeaders:     b.defaultHeaders,
 		FailureRatio:       b.failureRatio,
-		MinRequests:        b.minRequests,
 		MaxFailRequests:    b.maxFailRequests,
 		DelayPeriodOpened:  b.delayPeriodOpened,
 		ResetInterval:      b.resetInterval,
